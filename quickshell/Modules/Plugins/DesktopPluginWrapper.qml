@@ -17,7 +17,7 @@ Item {
     readonly property bool showOnOverlay: instanceData?.config?.showOnOverlay ?? false
     readonly property bool showOnOverview: instanceData?.config?.showOnOverview ?? false
     readonly property bool showOnOverviewOnly: instanceData?.config?.showOnOverviewOnly ?? false
-    readonly property bool overviewActive: CompositorService.isNiri && NiriService.inOverview
+    readonly property bool overviewActive: CompositorService.overviewActiveForScreen(screen?.name ?? "")
     readonly property bool clickThrough: instanceData?.config?.clickThrough ?? false
 
     // Unmapping with the widget still in the last buffer leaves a stale image in

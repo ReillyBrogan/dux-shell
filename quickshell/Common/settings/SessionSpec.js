@@ -289,6 +289,9 @@ var LOCAL_SPEC = {
     niriOverviewLastMode: {
         def: "apps"
     },
+    umbrielOverviewLastMode: {
+        def: "apps"
+    },
     showConfigReloadToast: {
         def: true
     }

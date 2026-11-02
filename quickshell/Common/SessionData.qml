@@ -314,6 +314,7 @@ Singleton {
     property var launcherQueryHistory: []
     property string appDrawerLastMode: "apps"
     property string niriOverviewLastMode: "apps"
+    property string umbrielOverviewLastMode: "apps"
     property bool showConfigReloadToast: true
 
     Component.onCompleted: {
@@ -1759,6 +1760,11 @@ Singleton {
 
     function setNiriOverviewLastMode(mode) {
         niriOverviewLastMode = mode;
+        saveSettings();
+    }
+
+    function setUmbrielOverviewLastMode(mode) {
+        umbrielOverviewLastMode = mode;
         saveSettings();
     }
 

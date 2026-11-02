@@ -1362,6 +1362,12 @@ Item {
         }
     }
 
+    LazyLoader {
+        id: umbrielOverviewOverlayLoader
+        active: CompositorService.isUmbriel && SettingsData.umbrielOverviewOverlayEnabled
+        component: UmbrielOverviewOverlay {}
+    }
+
     Loader {
         id: greeterLoader
         active: false
