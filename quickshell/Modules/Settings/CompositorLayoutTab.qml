@@ -194,17 +194,17 @@ awk '$1 == "xray" { print FILENAME ":" FNR; exit }' $files 2>/dev/null`;
             width: parent.width
             tags: ["niri", "overview", "window", "focus", "launch", "launcher", "dock", "settings"]
             title: I18n.tr("Overview")
-            settingKey: "niriOverview"
+            settingKey: "overview"
             iconName: "overview"
             visible: CompositorService.isNiri
 
             SettingsToggleRow {
                 tags: ["niri", "overview", "window", "focus", "launch", "launcher", "dock", "settings"]
-                settingKey: "closeNiriOverviewOnWindowFocus"
+                settingKey: "closeOverviewOnWindowFocus"
                 text: I18n.tr("Close on window focus")
                 description: I18n.tr("Leaves the overview when DMS launches an app or focuses a window", "niri overview close on window focus toggle description")
-                checked: SettingsData.closeNiriOverviewOnWindowFocus
-                onToggled: checked => SettingsData.set("closeNiriOverviewOnWindowFocus", checked)
+                checked: SettingsData.closeOverviewOnWindowFocus
+                onToggled: checked => SettingsData.set("closeOverviewOnWindowFocus", checked)
             }
         }
 

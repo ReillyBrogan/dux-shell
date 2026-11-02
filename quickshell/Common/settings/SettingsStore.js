@@ -784,7 +784,20 @@ function migrateToVersion(obj, targetVersion) {
         settings.configVersion = 42;
     }
 
+    if (currentVersion < 43 && targetVersion >= 43) {
+        migrateOverviewCloseSetting(settings);
+        settings.configVersion = 43;
+    }
+
     return settings;
+}
+
+// v43: every compositor with an overview closes it on window focus, so the setting is no longer niri's
+function migrateOverviewCloseSetting(settings) {
+    if (settings.closeOverviewOnWindowFocus === undefined && settings.closeNiriOverviewOnWindowFocus !== undefined) {
+        settings.closeOverviewOnWindowFocus = settings.closeNiriOverviewOnWindowFocus;
+    }
+    delete settings.closeNiriOverviewOnWindowFocus;
 }
 
 // v42: dock apps follow the dock's icon size and magnification instead of their own copies

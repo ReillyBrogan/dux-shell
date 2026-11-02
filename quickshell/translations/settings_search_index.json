@@ -13004,7 +13004,7 @@
     "conditionKey": "layoutCapable"
   },
   {
-    "section": "closeNiriOverviewOnWindowFocus",
+    "section": "closeOverviewOnWindowFocus",
     "label": "Close on window focus",
     "tabIndex": 37,
     "category": "System & integrations",
@@ -13665,7 +13665,7 @@
     "conditionKey": "layoutCapable"
   },
   {
-    "section": "niriOverview",
+    "section": "overview",
     "label": "Overview",
     "tabIndex": 37,
     "category": "System & integrations",

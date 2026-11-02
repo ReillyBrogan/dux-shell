@@ -323,7 +323,7 @@ FocusScope {
 
         function onItemExecuted() {
             root.parentModal?.hide();
-            CompositorService.closeNiriOverviewOnWindowFocus();
+            CompositorService.closeOverviewOnWindowFocus();
         }
         function onModeChanged(mode, userInitiated) {
             if (!userInitiated || !SettingsData.rememberLastMode)

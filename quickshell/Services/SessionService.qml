@@ -329,7 +329,7 @@ printf 'uwsm=%s\nelogind=%s\nloginctl=%s\nsystemctl=%s\nusermgr=%s\nhibernate=%s
     function launchDesktopEntry(desktopEntry, useNvidia, args) {
         if (!desktopEntry || !desktopEntry.command)
             return;
-        CompositorService.closeNiriOverviewOnWindowFocus();
+        CompositorService.closeOverviewOnWindowFocus();
         let cmd = args?.length ? [...desktopEntry.command, ...args] : desktopEntry.command;
 
         const appId = desktopEntry.id || desktopEntry.execString || desktopEntry.exec || "";
@@ -387,7 +387,7 @@ printf 'uwsm=%s\nelogind=%s\nloginctl=%s\nsystemctl=%s\nusermgr=%s\nhibernate=%s
     function launchDesktopAction(desktopEntry, action, useNvidia) {
         if (!desktopEntry || !action || !action.command)
             return;
-        CompositorService.closeNiriOverviewOnWindowFocus();
+        CompositorService.closeOverviewOnWindowFocus();
         let cmd = action.command;
 
         const appId = desktopEntry.id || desktopEntry.execString || desktopEntry.exec || "";

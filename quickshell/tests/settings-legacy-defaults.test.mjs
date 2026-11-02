@@ -49,3 +49,22 @@ test("stored 1.6 globals still win over legacy defaults", () => {
     assert.equal(migrated.barConfigs[0].centerWidgets[0].appsDockHideIndicators, true);
     assert.equal("appsDockHideIndicators" in migrated, false);
 });
+
+test("the niri overview close setting carries over to every compositor", () => {
+    const migrated = store.migrateToVersion({ configVersion: 42, closeNiriOverviewOnWindowFocus: false }, 43);
+    assert.equal(migrated.closeOverviewOnWindowFocus, false);
+    assert.equal("closeNiriOverviewOnWindowFocus" in migrated, false);
+});
+
+test("a value already stored under the new overview close key wins", () => {
+    const migrated = store.migrateToVersion({ configVersion: 42, closeNiriOverviewOnWindowFocus: false, closeOverviewOnWindowFocus: true }, 43);
+    assert.equal(migrated.closeOverviewOnWindowFocus, true);
+    assert.equal("closeNiriOverviewOnWindowFocus" in migrated, false);
+});
+
+test("a 1.6 overview close choice survives to the current version", () => {
+    const migrated = store.migrateToVersion({ configVersion: 14, spotlightCloseNiriOverview: false }, 43);
+    assert.equal(migrated.closeOverviewOnWindowFocus, false);
+    assert.equal("spotlightCloseNiriOverview" in migrated, false);
+    assert.equal("closeNiriOverviewOnWindowFocus" in migrated, false);
+});
