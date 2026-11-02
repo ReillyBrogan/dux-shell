@@ -33,7 +33,7 @@ Singleton {
     readonly property bool genericPowerBackend: compositorDetected && !isNiri && !isHyprland && !isMango && !isSway && !isScroll && !isMiracle && !isLabwc && !isUmbriel
     onGenericPowerBackendChanged: probeOutputPower()
 
-    readonly property bool inOverview: (isHyprland && HyprlandService.inOverview) || (isNiri && NiriService.inOverview) || (isMango && MangoService.inOverview)
+    readonly property bool inOverview: (isHyprland && HyprlandService.inOverview) || (isNiri && NiriService.inOverview) || (isMango && MangoService.inOverview) || (isUmbriel && UmbrielService.overviewOpen)
 
     function probeOutputPower() {
         outputPowerAvailable = false;
@@ -160,7 +160,7 @@ Singleton {
         }
     }
     readonly property bool supportsSmartDock: isNiri || isHyprland || isMango || isAqueous
-    readonly property bool supportsNativeOverview: isNiri || isAqueous
+    readonly property bool supportsNativeOverview: isNiri || isAqueous || isUmbriel
     readonly property bool supportsPointerConfig: isNiri || isHyprland || isMango
     readonly property bool supportsInputConfig: isNiri || isHyprland || isMango
 
@@ -277,8 +277,14 @@ Singleton {
     }
 
     function closeOverviewOnWindowFocus() {
-        if (SettingsData.closeOverviewOnWindowFocus && isNiri && NiriService.inOverview)
+        if (!SettingsData.closeOverviewOnWindowFocus)
+            return;
+        if (isNiri && NiriService.inOverview) {
             NiriService.closeOverview();
+            return;
+        }
+        if (isUmbriel && UmbrielService.overviewOpen)
+            UmbrielService.sendAction("overview-close");
     }
 
     function activateToplevel(toplevel) {
@@ -1076,6 +1082,8 @@ Singleton {
     function overviewActiveOnScreen(screenOrName) {
         if (isAqueous && AqueousService.available)
             return !!AqueousService.sessionState.overview_output && AqueousService.sessionState.overview_output === AqueousService.outputId(_screenName(screenOrName));
+        if (isUmbriel)
+            return UmbrielService.overviewOpen;
         return isNiri && NiriService.inOverview;
     }
 
@@ -2125,6 +2133,8 @@ Singleton {
         switch (compositor) {
         case "niri":
             return NiriService.inOverview;
+        case "umbriel":
+            return UmbrielService.overviewOpen;
         case "mango":
             return MangoService.isOutputInOverview(screenName);
         case "aqueous":
@@ -2150,6 +2160,9 @@ Singleton {
             return;
         case "niri":
             NiriService.toggleOverview();
+            return;
+        case "umbriel":
+            UmbrielService.sendAction("overview-toggle");
             return;
         case "mango":
             if (MangoService.getOutputState(screenName))

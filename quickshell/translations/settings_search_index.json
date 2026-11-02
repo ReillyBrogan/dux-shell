@@ -6903,6 +6903,30 @@
     "conditionKey": "isNiri"
   },
   {
+    "section": "umbrielOverviewLauncherStyle",
+    "label": "Opens",
+    "tabIndex": 9,
+    "category": "Launcher",
+    "keywords": [
+      "app drawer",
+      "app menu",
+      "applications",
+      "drawer",
+      "full",
+      "launcher",
+      "menu",
+      "opens",
+      "overlay",
+      "overview",
+      "spotlight",
+      "start",
+      "start menu",
+      "style",
+      "umbriel"
+    ],
+    "conditionKey": "isUmbriel"
+  },
+  {
     "section": "niriOverviewOverlayEnabled",
     "label": "Overlay",
     "tabIndex": 9,
@@ -6927,7 +6951,31 @@
     "conditionKey": "isNiri"
   },
   {
-    "section": "launcherNiriOverview",
+    "section": "umbrielOverviewOverlayEnabled",
+    "label": "Overlay",
+    "tabIndex": 9,
+    "category": "Launcher",
+    "keywords": [
+      "app drawer",
+      "app menu",
+      "applications",
+      "drawer",
+      "enable",
+      "launcher",
+      "menu",
+      "opens",
+      "overlay",
+      "overview",
+      "start",
+      "start menu",
+      "typing",
+      "umbriel"
+    ],
+    "description": "Typing in the overview opens the launcher",
+    "conditionKey": "isUmbriel"
+  },
+  {
+    "section": "launcherOverviewOverlay",
     "label": "Overview",
     "tabIndex": 9,
     "category": "Launcher",
@@ -6942,10 +6990,11 @@
       "overlay",
       "overview",
       "start",
-      "start menu"
+      "start menu",
+      "umbriel"
     ],
     "icon": "overview_key",
-    "conditionKey": "isNiri"
+    "conditionKey": "isNiriOrUmbriel"
   },
   {
     "section": "pluginVisibility",
@@ -13056,6 +13105,7 @@
       "overview",
       "settings",
       "system",
+      "umbriel",
       "window"
     ],
     "description": "Leaves the overview when DMS launches an app or focuses a window",
@@ -13713,10 +13763,11 @@
       "overview",
       "settings",
       "system",
+      "umbriel",
       "window"
     ],
     "icon": "overview",
-    "conditionKey": "isNiri"
+    "conditionKey": "isNiriOrUmbriel"
   },
   {
     "section": "hyprlandDwindlePreserveSplit",

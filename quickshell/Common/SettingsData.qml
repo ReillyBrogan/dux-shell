@@ -489,6 +489,8 @@ Singleton {
     onAppDrawerSectionViewModesChanged: saveSettings()
     property bool niriOverviewOverlayEnabled: Spec.SPEC.niriOverviewOverlayEnabled.def
     property string niriOverviewLauncherStyle: Spec.SPEC.niriOverviewLauncherStyle.def
+    property bool umbrielOverviewOverlayEnabled: Spec.SPEC.umbrielOverviewOverlayEnabled.def
+    property string umbrielOverviewLauncherStyle: Spec.SPEC.umbrielOverviewLauncherStyle.def
     property string dankLauncherV2Size: Spec.SPEC.dankLauncherV2Size.def
     property bool dankLauncherV2ShowSourceBadges: Spec.SPEC.dankLauncherV2ShowSourceBadges.def
     property bool dankLauncherV2BorderEnabled: Spec.SPEC.dankLauncherV2BorderEnabled.def

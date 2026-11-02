@@ -557,6 +557,10 @@ def find_settings_components(content, filename, wrappers, tab_meta, hub_meta):
                     condition_key = "isHyprlandOrNiri"
                 elif all(c in visible_raw for c in ("CompositorService.isNiri", "CompositorService.isMango")):
                     condition_key = "isNiriOrMango"
+                elif all(c in visible_raw for c in ("CompositorService.isNiri", "CompositorService.isUmbriel")):
+                    condition_key = "isNiriOrUmbriel"
+                elif "CompositorService.isUmbriel" in visible_raw:
+                    condition_key = "isUmbriel"
                 elif "CompositorService.isNiri" in visible_raw:
                     condition_key = "isNiri"
                 elif "CompositorService.isHyprland" in visible_raw:

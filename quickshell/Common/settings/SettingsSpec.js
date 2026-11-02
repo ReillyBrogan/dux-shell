@@ -880,6 +880,12 @@ var LOCAL_SPEC = {
     niriOverviewLauncherStyle: {
         def: "full"
     },
+    umbrielOverviewOverlayEnabled: {
+        def: false
+    },
+    umbrielOverviewLauncherStyle: {
+        def: "full"
+    },
     dankLauncherV2Size: {
         def: "compact"
     },

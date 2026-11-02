@@ -181,7 +181,7 @@ Variants {
             property string currentSource: ""
             property bool frozenValid: false
             property int _freezeWaitFrames: 0
-            readonly property bool overviewBlurActive: CompositorService.isNiri && SettingsData.blurWallpaperOnOverview && NiriService.inOverview && (currentSource !== "" || showsBackdrop)
+            readonly property bool overviewBlurActive: SettingsData.blurWallpaperOnOverview && CompositorService.overviewActiveOnScreen(modelData) && (currentSource !== "" || showsBackdrop)
             readonly property var backingWindow: Window.window
             readonly property bool showsBackdrop: !source || isColorSource || currentWallpaper.status === Image.Error
             readonly property bool backdropBusy: showsBackdrop && !(backdropLoader.item?.ready ?? false)

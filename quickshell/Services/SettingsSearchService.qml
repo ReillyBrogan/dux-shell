@@ -81,6 +81,8 @@ Singleton {
             "workspaceFollowFocusCapable": () => CompositorService.supportsWorkspaceFollowFocus,
             "isHyprlandOrNiri": () => CompositorService.isHyprland || CompositorService.isNiri,
             "isNiriOrMango": () => CompositorService.isNiri || CompositorService.isMango,
+            "isUmbriel": () => CompositorService.isUmbriel,
+            "isNiriOrUmbriel": () => CompositorService.isNiri || CompositorService.isUmbriel,
             "windowRulesCapable": () => CompositorService.supportsWindowRules,
             "layoutCapable": () => CompositorService.supportsLayoutConfig,
             "keybindsAvailable": () => KeybindsService.available,

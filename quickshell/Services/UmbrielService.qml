@@ -15,33 +15,41 @@ Singleton {
     readonly property string socketPath: Quickshell.env("UMBRIEL_SOCKET")
 
     property bool active: false
+    property bool overviewOpen: false
     property var workspaces: []
     property var windows: []
     readonly property string focusedOutput: workspaces.find(ws => ws.focused)?.output ?? ""
 
     DCommon.DSocket {
+        id: socket
         path: root.socketPath
         connected: root.active && root.socketPath !== ""
 
         onConnectionStateChanged: {
-            if (linkUp)
-                send({
-                    "cmd": "subscribe",
-                    "events": ["workspaces", "windows"]
-                });
+            if (!linkUp)
+                return;
+            send({
+                "cmd": "subscribe",
+                "events": ["workspaces", "windows"]
+            });
+            // Separate request: an unknown family rejects only this subscription, so workspaces and windows keep flowing.
+            send({
+                "cmd": "subscribe",
+                "events": ["overview"]
+            });
         }
 
         parser: SplitParser {
-            onRead: line => root._handleEvent(line)
+            onRead: line => root._handleMessage(line)
         }
     }
 
-    function _handleEvent(line) {
+    function _handleMessage(line) {
         let message;
         try {
             message = JSON.parse(line);
         } catch (e) {
-            log.warn("Failed to parse event:", e);
+            log.warn("Failed to parse message:", e);
             return;
         }
         switch (message.event) {
@@ -51,7 +59,21 @@ Singleton {
         case "windows":
             windows = message.data;
             return;
+        case "overview":
+            overviewOpen = message.data?.open === true;
+            return;
         }
+        if (message.err)
+            log.warn("Request failed:", message.err);
+    }
+
+    function sendAction(name) {
+        if (!socket.linkUp)
+            return;
+        socket.send({
+            "cmd": "action",
+            "action": name
+        });
     }
 
     function action(name) {

@@ -17,8 +17,9 @@ Item {
     readonly property string defaultLauncherKeybindSearch: "spotlight toggle"
     readonly property string spotlightBarKeybindSearch: "spotlight-bar"
     readonly property bool spotlightIgnoresRows: SettingsData.launcherStyle === "spotlight" && !SettingsData.connectedFrameModeActive
-    // The niri overview launcher still uses size and footer when it is set to the full style.
-    readonly property bool spotlightIgnoresSize: spotlightIgnoresRows && !(CompositorService.isNiri && SettingsData.niriOverviewOverlayEnabled && SettingsData.niriOverviewLauncherStyle !== "spotlight")
+    // The overview launcher still uses size and footer when it is set to the full style.
+    readonly property bool overviewLauncherFullStyle: (CompositorService.isNiri && SettingsData.niriOverviewOverlayEnabled && SettingsData.niriOverviewLauncherStyle !== "spotlight") || (CompositorService.isUmbriel && SettingsData.umbrielOverviewOverlayEnabled && SettingsData.umbrielOverviewLauncherStyle !== "spotlight")
+    readonly property bool spotlightIgnoresSize: spotlightIgnoresRows && !overviewLauncherFullStyle
     readonly property var builtInPluginIds: ["dms_settings", "dms_notepad", "dms_sysmon", "dms_colorpicker", "dms_settings_search", "dms_clipboard_search", "dms_power", "dms_vpn", "dms_qr_generator"]
 
     function openKeybindsSearch(query) {
@@ -126,11 +127,12 @@ Item {
             width: parent.width
             iconName: "overview_key"
             title: I18n.tr("Overview")
-            settingKey: "launcherNiriOverview"
-            tags: ["launcher", "niri", "overview", "overlay"]
-            visible: CompositorService.isNiri
+            settingKey: "launcherOverviewOverlay"
+            tags: ["launcher", "niri", "umbriel", "overview", "overlay"]
+            visible: CompositorService.isNiri || CompositorService.isUmbriel
 
             SettingsToggleRow {
+                visible: CompositorService.isNiri
                 settingKey: "niriOverviewOverlayEnabled"
                 tags: ["launcher", "niri", "overview", "overlay", "enable"]
                 text: I18n.tr("Overlay")
@@ -140,7 +142,7 @@ Item {
             }
 
             SettingsButtonGroupRow {
-                visible: SettingsData.niriOverviewOverlayEnabled
+                visible: CompositorService.isNiri && SettingsData.niriOverviewOverlayEnabled
                 settingKey: "niriOverviewLauncherStyle"
                 tags: ["launcher", "niri", "overview", "overlay", "style", "spotlight", "full"]
                 text: I18n.tr("Opens")
@@ -150,6 +152,30 @@ Item {
                     if (!selected)
                         return;
                     SettingsData.set("niriOverviewLauncherStyle", index === 1 ? "spotlight" : "full");
+                }
+            }
+
+            SettingsToggleRow {
+                visible: CompositorService.isUmbriel
+                settingKey: "umbrielOverviewOverlayEnabled"
+                tags: ["launcher", "umbriel", "overview", "overlay", "enable"]
+                text: I18n.tr("Overlay")
+                description: I18n.tr("Typing in the overview opens the launcher")
+                checked: SettingsData.umbrielOverviewOverlayEnabled
+                onToggled: checked => SettingsData.set("umbrielOverviewOverlayEnabled", checked)
+            }
+
+            SettingsButtonGroupRow {
+                visible: CompositorService.isUmbriel && SettingsData.umbrielOverviewOverlayEnabled
+                settingKey: "umbrielOverviewLauncherStyle"
+                tags: ["launcher", "umbriel", "overview", "overlay", "style", "spotlight", "full"]
+                text: I18n.tr("Opens")
+                model: [I18n.tr("Full"), I18n.tr("Spotlight")]
+                currentIndex: SettingsData.umbrielOverviewLauncherStyle === "spotlight" ? 1 : 0
+                onSelectionChanged: (index, selected) => {
+                    if (!selected)
+                        return;
+                    SettingsData.set("umbrielOverviewLauncherStyle", index === 1 ? "spotlight" : "full");
                 }
             }
         }
