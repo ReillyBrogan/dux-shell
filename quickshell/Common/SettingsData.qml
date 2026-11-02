@@ -24,7 +24,7 @@ Singleton {
     id: root
     readonly property var log: Log.scoped("SettingsData")
 
-    readonly property int settingsConfigVersion: 42
+    readonly property int settingsConfigVersion: 43
 
     enum Position {
         Top,
@@ -478,7 +478,7 @@ Singleton {
     property string appPickerViewMode: Spec.SPEC.appPickerViewMode.def
     property bool sortAppsAlphabetically: Spec.SPEC.sortAppsAlphabetically.def
     property int appLauncherGridColumns: Spec.SPEC.appLauncherGridColumns.def
-    property bool closeNiriOverviewOnWindowFocus: Spec.SPEC.closeNiriOverviewOnWindowFocus.def
+    property bool closeOverviewOnWindowFocus: Spec.SPEC.closeOverviewOnWindowFocus.def
     property bool rememberLastQuery: Spec.SPEC.rememberLastQuery.def
     property bool launcherHistoryEnabled: Spec.SPEC.launcherHistoryEnabled.def
     property string launcherEnterAction: Spec.SPEC.launcherEnterAction.def

@@ -276,8 +276,8 @@ Singleton {
         return supportsMinimize && toplevel && toplevel.minimized !== undefined;
     }
 
-    function closeNiriOverviewOnWindowFocus() {
-        if (SettingsData.closeNiriOverviewOnWindowFocus && isNiri && NiriService.inOverview)
+    function closeOverviewOnWindowFocus() {
+        if (SettingsData.closeOverviewOnWindowFocus && isNiri && NiriService.inOverview)
             NiriService.closeOverview();
     }
 
@@ -288,7 +288,7 @@ Singleton {
             toplevel.activate();
             return;
         }
-        closeNiriOverviewOnWindowFocus();
+        closeOverviewOnWindowFocus();
         if (canMinimize(toplevel) && toplevel.minimized)
             toplevel.minimized = false;
         toplevel.activate();

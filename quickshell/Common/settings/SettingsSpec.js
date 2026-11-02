@@ -852,7 +852,7 @@ var LOCAL_SPEC = {
     appLauncherGridColumns: {
         def: 4
     },
-    closeNiriOverviewOnWindowFocus: {
+    closeOverviewOnWindowFocus: {
         def: true
     },
     rememberLastQuery: {
